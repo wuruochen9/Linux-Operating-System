@@ -1,0 +1,80 @@
+<=========================================================>
+<=================>    BUG LOG HEADER   <=================>
+<=========================================================>
+Assignment:
+    MP2
+CheckPoint:
+    CP1
+<--------------------------------------------------------->
+                          BUG 1                         
+<--------------------------------------------------------->
+Description:
+    the status bar alway blinks when I move the player.
+    And also at the top of the screen another status bar appears and blinks.
+Solution:
+    That's because the start address of upper screen and bottom screen are the same at 0x000.
+    I moved the start address of upper screen to 0+18*320/4, to reserve a place for status bar.
+
+<--------------------------------------------------------->
+                          BUG 2                        
+<--------------------------------------------------------->
+Description:
+the bottom of the maze is under the status bar
+Solution:
+the height of the maze is not correct
+I changed img_y_dim to 182
+<--------------------------------------------------------->
+                          BUG 3                        
+<--------------------------------------------------------->
+Description:
+the string is on the left side of the bar.
+Solution:
+I didn't reserve some place on the left
+So I added space to the address. space=(320-strlen(string))/2
+
+Assignment:
+    MP2
+CheckPoint:
+    CP2
+<--------------------------------------------------------->
+                          BUG 1                         
+<--------------------------------------------------------->
+Description:
+the fruit text doesn't show and the program crashes
+Solution:
+I only let the fruit text buffer appear half above the player.
+So I made the top y of fruit text buffer be the y of player minus buffer's y size
+
+<--------------------------------------------------------->
+                          BUG 2                         
+<--------------------------------------------------------->
+Description:
+when it comes to the strawberry, the program crashes.
+Solution:
+That's because the size of buffer is too small.
+So I reset the size and made it bigger.
+
+<--------------------------------------------------------->
+                          BUG 3                        
+<--------------------------------------------------------->
+Description:
+Green shows in fruit text when the player is moving
+Solution:
+When I set transparent ratio of background from 0.6 to 0.4, the green disappeared.
+
+<--------------------------------------------------------->
+                          BUG 4                      
+<--------------------------------------------------------->
+Description:
+I can't quit the game after adding tux thread.
+Solution:
+delete pthread_join and add pthread_cancel 
+
+<--------------------------------------------------------->
+                          BUG 5                     
+<--------------------------------------------------------->
+Description:
+LED blinks abnormally.
+Solution:
+Set 7-segment code to 0x00 if LED is masked.
+
